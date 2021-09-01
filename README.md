@@ -1,91 +1,59 @@
-<img src="https://rocket.chat/images/default/logo--dark.svg">
+# drone-rocketchat [![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/joseluisq/drone-rocketchat/latest)](https://hub.docker.com/r/joseluisq/drone-rocketchat/) [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/joseluisq/drone-rocketchat/latest)](https://hub.docker.com/r/joseluisq/drone-rocketchat/tags)
 
-# drone-[rocket](https://rocket.chat)
-
-Drone plugin for sending message to Rocket.Chant channel using API.
-
-[![Build Status](https://ci.piterjs.org/api/badges/mike1pol/drone-rocket/status.svg)](https://ci.piterjs.org/mike1pol/drone-rocket)
-[![Docker Pulls](https://img.shields.io/docker/pulls/mike1pol/drone-rocket.svg)](https://hub.docker.com/r/mike1pol/drone-rocket/)
-[![](https://images.microbadger.com/badges/image/mike1pol/drone-rocket.svg)](https://microbadger.com/images/mike1pol/drone-rocket "Get your own image badge on microbadger.com")
-
-
-Sending Rocket.Chat message using a binary, docker or [Drone CI](http://docs.drone.io/).
-
+> [Drone](https://www.drone.io/) updated plugin for sending [Rocket.Chat](https://rocket.chat) messages to a channel using the latest [REST API v1](https://developer.rocket.chat/api/rest-api/).<br>
+> **Note:** This a provisional only and upgraded fork of [github.com/mike1pol/drone-rocket](https://github.com/mike1pol/drone-rocket).
 
 ## Usage
 
-There are three ways to send notification.
+### Using the binary
 
-* [usage from binary](#usage-from-binary)
-* [usage from docker](#usage-from-docker)
-* [usage from drone ci](#usage-from-drone-ci)
-
-<a name="usage-from-binary"></a>
-### Usage from binary
-
-#### Send Notification
-
-```bash
-drone-rocket \
-  --url xxxx \
-  --user-id xxxx \
-  --token xxx \
-  --channel xxx \
-  --message "Test Message"
+```sh
+drone-rocketchat \
+  --url="http://chat.example.org" \
+  --user-id="" \
+  --token="" \
+  --channel="" \
+  --message="Test Message"
 ```
 
-<a name="usage-from-docker"></a>
-### Usage from docker
+### Using Docker
 
-#### Send Notification
-
-```bash
+```sh
 docker run --rm \
-  -e URL=xxxxxxx \
-  -e USER_ID=xxxxxxx \
-  -e TOKEN=xxxxxxx \
+  -e URL="http://chat.example.org" \
+  -e USER_ID="" \
+  -e TOKEN="" \
   -e CHANNEL='#general' \
-  -e AVATAR_URL=http://example.com/xxxx.png \
-  -e MESSAGE=test \
-  mike1pol/drone-rocket
+  -e AVATAR_URL="http://example.org/img.png" \
+  -e MESSAGE="Test Message" \
+  joseluisq/drone-rocketchat
 ```
 
-<a name="usage-from-drone-ci"></a>
-### Usage from drone ci
-
-#### Send Notification
+### Using Drone CI
 
 Execute from the working directory:
 
-```bash
+```sh
 docker run --rm \
-  -e URL=xxxxxxx \
-  -e USER_ID=xxxxxxx \
-  -e TOKEN=xxxxxxx \
-  -e CHANNEL='#general' \
-  -e AVATAR_URL='https://upload.wikimedia.org/wikipedia/commons/6/69/June_odd-eyed-cat_cropped.jpg' \
-  -e MESSAGE=test \
-  -e DRONE_REPO_OWNER=mike1pol \
-  -e DRONE_REPO_NAME=drone-rocket \
-  -e DRONE_COMMIT_SHA=e5e82b5eb3737205c25955dcc3dcacc839b7be52 \
+  -e URL="http://chat.example.org" \
+  -e USER_ID="" \
+  -e TOKEN="" \
+  -e CHANNEL="#general" \
+  -e AVATAR_URL="http://example.org/img.png" \
+  -e MESSAGE="Test Message" \
+  -e DRONE_REPO_OWNER=joseluisq \
+  -e DRONE_REPO_NAME=drone-rocketchat \
+  -e DRONE_COMMIT_SHA=54540780fdda0a1b23e243abc3a9226a9f982ac7 \
   -e DRONE_COMMIT_BRANCH=master \
-  -e DRONE_COMMIT_AUTHOR=mike1pol \
-  -e DRONE_COMMIT_AUTHOR_EMAIL=mikle.sol@gmail.com \
-  -e DRONE_COMMIT_MESSAGE=Test_Your_Commit \
+  -e DRONE_COMMIT_AUTHOR=joseluisq \
+  -e DRONE_COMMIT_AUTHOR_EMAIL=abc@example.org \
+  -e DRONE_COMMIT_MESSAGE=test_your_commit \
   -e DRONE_BUILD_NUMBER=1 \
   -e DRONE_BUILD_STATUS=success \
-  -e DRONE_BUILD_LINK=http://github.com/mike1pol/drone-rocket \
-  -e DRONE_JOB_STARTED=1477550550 \
-  -e DRONE_JOB_FINISHED=1477550750 \
+  -e DRONE_BUILD_LINK=http://github.com/joseluisq/drone-rocketchat \
+  -e DRONE_JOB_STARTED=1244550580 \
+  -e DRONE_JOB_FINISHED=1244550580 \
   -v $(pwd):$(pwd) \
   -w $(pwd) \
-  mike1pol/drone-rocket
-```
-
-## Testing
-
-Test the package with the following command:
-
-```
-$ make test
+  joseluisq/drone-rocketchat
 ```

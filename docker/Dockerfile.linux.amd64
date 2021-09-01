@@ -1,0 +1,5 @@
+FROM alpine:3.13
+
+ADD release/linux/amd64/drone-rocketchat /usr/local/bin/
+
+ENTRYPOINT ["drone-rocketchat"]

@@ -156,8 +156,5 @@ func (p *Plugin) SendMessage(msg string) error {
 		return err
 	}
 	defer resp.Body.Close()
-	if err != nil {
-		return err
-	}
 	return nil
 }
