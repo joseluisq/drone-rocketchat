@@ -1,4 +1,4 @@
-package main
+package plugin
 
 import (
 	"bytes"
@@ -148,13 +148,16 @@ func (p *Plugin) SendMessage(msg string) error {
 	if err != nil {
 		return err
 	}
+	req.Header.Add("Content-type", "application/json")
 	req.Header.Add("X-User-Id", p.Config.UserID)
 	req.Header.Add("X-Auth-Token", p.Config.Token)
 	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
 	defer resp.Body.Close()
 	if err != nil {
 		return err
 	}
-
 	return nil
 }

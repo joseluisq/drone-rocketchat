@@ -9,6 +9,8 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/urfave/cli"
+
+	rocketchat "joseluisq/drone-rocketchat"
 )
 
 var Version string
@@ -196,21 +198,20 @@ func run(c *cli.Context) error {
 	if c.String("env-file") != "" {
 		_ = godotenv.Load(c.String("env-file"))
 	}
-
-	plugin := Plugin{
-		GitHub: GitHub{
+	plugin := rocketchat.Plugin{
+		GitHub: rocketchat.GitHub{
 			Workflow:  c.String("github.workflow"),
 			Workspace: c.String("github.workspace"),
 			Action:    c.String("github.action"),
 			EventName: c.String("github.event.name"),
 			EventPath: c.String("github.event.path"),
 		},
-		Repo: Repo{
+		Repo: rocketchat.Repo{
 			FullName:  c.String("repo"),
 			Namespace: c.String("repo.namespace"),
 			Name:      c.String("repo.name"),
 		},
-		Build: Build{
+		Build: rocketchat.Build{
 			Tag:      c.String("build.tag"),
 			Number:   c.Int("build.number"),
 			Event:    c.String("build.event"),
@@ -226,7 +227,7 @@ func run(c *cli.Context) error {
 			Started:  c.Float64("job.started"),
 			Finished: c.Float64("job.finished"),
 		},
-		Config: Config{
+		Config: rocketchat.Config{
 			Url:     c.String("url"),
 			UserID:  c.String("user-id"),
 			Token:   c.String("token"),
@@ -234,11 +235,10 @@ func run(c *cli.Context) error {
 			Drone:   c.Bool("drone"),
 			GitHub:  c.Bool("github"),
 		},
-		Payload: Payload{
+		Payload: rocketchat.Payload{
 			Avatar:  c.String("avatar-url"),
 			Channel: c.String("channel"),
 		},
 	}
-
 	return plugin.Exec()
 }
